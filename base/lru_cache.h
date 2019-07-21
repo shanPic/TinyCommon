@@ -3,7 +3,7 @@
 
 #include <list>
 #include <memory>
-#include <mutext>
+#include <mutex>
 #include <unordered_map>
 
 namespace tinycommon{
