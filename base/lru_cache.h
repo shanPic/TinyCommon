@@ -22,7 +22,7 @@ public:
     using size_type         = size_t;
     using rate_type         = double;
 
-    struct stats {
+    struct Stats {
         size_type   m_get_cnt; //总的请求次数
         size_type   m_hit_cnt; //命中次数
     };
@@ -81,7 +81,7 @@ public:
     ///
     bool exists(const key_type& key) const
     {
-        std::lock_guard<std::mutex> lck (m_mutex);
+        std::lock_guard<std::mutex> lck(m_mutex);
         auto ite = m_hash_table.find(key);
         return ite == m_hash_table.end() ? false : true;
     }
@@ -93,7 +93,7 @@ public:
     ///
     rate_type get_hit_rate() const
     {
-        std::lock_guard<std::mutex> lck (m_mutex);
+        std::lock_guard<std::mutex> lck(m_mutex);
         return static_cast<rate_type>(m_stats.m_hit_cnt) /
             static_cast<rate_type>(m_stats.m_get_cnt);
     }

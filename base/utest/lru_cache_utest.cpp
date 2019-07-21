@@ -3,13 +3,20 @@
 
 #include <memory>
 #include <iostream>
+#include <stdint.h>
 #include <string>
+#include <sys/time.h>
 
 #include "../lru_cache.h"
-#include "posix_time.h"
 
 namespace tinycommon {
 namespace base {
+
+uint64_t get_microsecond() {
+    timespec time_now;
+    clock_gettime(CLOCK_THREAD_CPUTIME_ID, &time_now);
+    return static_cast<uint64_t>(time_now.tv_nsec);
+}
 
 TEST(LRUCacheTest, LRUCacheConstruct) {
 
@@ -184,3 +191,9 @@ TEST(LRUCacheTest, LRUCachePerformance) {
 
 }// namespace common
 }// namespace mapauto
+
+int main(int argc,char *argv[])
+{
+    testing::InitGoogleTest(&argc, argv);//将命令行参数传递给gtest
+    return RUN_ALL_TESTS();   //RUN_ALL_TESTS()运行所有测试案例
+}
